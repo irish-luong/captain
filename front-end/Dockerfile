@@ -1,7 +1,7 @@
 # build stage
-FROM node:13-alpine as build-stage
+FROM node:16.2.0-alpine as build-stage
 WORKDIR /app
-COPY . .
+COPY ./front-end /app
 RUN yarn install
 RUN yarn build
 
