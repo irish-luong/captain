@@ -2,17 +2,30 @@ import { Refine } from "@pankod/refine";
 import routerProvider from "@pankod/refine-react-router";
 
 import "@pankod/refine/dist/styles.min.css";
-import simpleRestDataProvider from "@pankod/refine-simple-rest";
+import dataProvider from "@pankod/refine-simple-rest";
 
-function App() {
-  const API_URL = "https://api.fake-rest.refine.dev";
-  const dataProvider = simpleRestDataProvider(API_URL);
+
+// Project modules
+import authProvider from "middleware"
+import { OrderList } from "pages/orders"
+
+const App: React.FC = () => {
   return (
     <Refine
+      authProvider={authProvider}
       routerProvider={routerProvider}
-      dataProvider={dataProvider}
+      dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+      resources={[
+        {
+          name: "posts",
+          list: OrderList
+        },
+        {
+          name: "drivers"
+        }
+      ]}
     ></Refine>
   );
-}
+};
 
 export default App;
